@@ -24,14 +24,20 @@ public class DBConnection {
     }
 
     public static Connection getConnection() {
+
+        Connection conn = null;
+
         try {
-            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Database connected successfully!");
-            return conn;
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
+            System.out.println("Database connected successfully");
+
         } catch (SQLException e) {
-            System.out.println("Database connection FAILED");
+
+            System.out.println("Database connection failed");
             e.printStackTrace();
-            return null;
         }
+
+        return conn;
     }
 }
