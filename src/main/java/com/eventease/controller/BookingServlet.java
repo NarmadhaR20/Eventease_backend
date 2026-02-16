@@ -59,7 +59,7 @@ public class BookingServlet extends HttpServlet {
 
             if (bookingId > 0 && !seatIds.isEmpty()) {
                 bookingDAO.insertBookingSeats(bookingId, seatIds);
-                String updateSql = "UPDATE store_booking SET status = ?, ticket_downloaded = ? WHERE booking_id = ?";
+                String updateSql = "UPDATE booking SET status = ?, ticket_downloaded = ? WHERE id = ?";
                 try (PreparedStatement pst = conn.prepareStatement(updateSql)) {
                     pst.setString(1, "Confirmed"); // or "Paid"
                     pst.setInt(2, 1);              // ticket downloaded

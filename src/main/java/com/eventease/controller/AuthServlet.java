@@ -70,7 +70,7 @@ public class AuthServlet extends HttpServlet {
                     // Send JSON response
                     json.put("status", "success");
                     JSONObject userJson = new JSONObject();
-                    userJson.put("userId", user.getUserId());
+                    userJson.put("userId", user.getId());
                     userJson.put("username", user.getUsername());
                     userJson.put("email", user.getEmail());
                     json.put("user", userJson);

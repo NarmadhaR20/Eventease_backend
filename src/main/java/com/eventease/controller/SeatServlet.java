@@ -26,6 +26,7 @@ public class SeatServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try {
+
             SeatDAO seatDAO = new SeatDAO();
             List<Seat> seats = seatDAO.getAllSeats();
 
@@ -34,31 +35,34 @@ public class SeatServlet extends HttpServlet {
                 return;
             }
 
-            // ✅ Build JSON manually (no org.json needed)
             StringBuilder json = new StringBuilder("[");
+
             for (int i = 0; i < seats.size(); i++) {
+
                 Seat seat = seats.get(i);
 
                 json.append("{")
-                    .append("\"seatId\":").append(seat.getSeatId()).append(",")
+                    .append("\"seatId\":").append(seat.getId()).append(",")
                     .append("\"seatNumber\":\"").append(seat.getSeatNumber()).append("\",")
-                    .append("\"status\":\"").append(seat.isAvailable() ? "Available" : "Booked").append("\"")
+                    .append("\"status\":\"").append(seat.isBooked() ? "Booked" : "Available").append("\"")
                     .append("}");
 
-                if (i < seats.size() - 1) json.append(",");
+                if (i < seats.size() - 1) {
+                    json.append(",");
+                }
             }
+
             json.append("]");
 
             out.write(json.toString());
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.write("{\"error\":\"Database error: " + e.getMessage() + "\"}");
         } catch (Exception e) {
+
             e.printStackTrace();
+
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.write("{\"error\":\"Unexpected error: " + e.getMessage() + "\"}");
+
+            out.write("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
 }

@@ -2,7 +2,7 @@ package com.eventease.dao;
 
 import com.eventease.model.User;
 import com.eventease.util.DBConnection;
-import java.sql.*;
+import java.sql.*; 
 
 public class UserDAO {
     public boolean registerUser(User user) {
@@ -26,7 +26,7 @@ public class UserDAO {
                 rs = stmt.getGeneratedKeys();
                 if (rs.next()) {
                     user.setId(rs.getInt(1));
-                    System.out.println("User registered with ID: " + user.getUserId());
+                    System.out.println("User registered with ID: " + user.getId());
                 }
                 return true;
             }
